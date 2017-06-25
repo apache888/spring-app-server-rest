@@ -13,11 +13,11 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class Person extends BaseEntity {
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "first_name", nullable = false)
     @NotEmpty
     protected String firstName;
 
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "last_name", nullable = false)
     @NotEmpty
     protected String lastName;
 

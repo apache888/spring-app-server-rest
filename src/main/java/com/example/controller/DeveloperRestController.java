@@ -21,7 +21,7 @@ import java.util.Collection;
  * @author Roman Hayda
  */
 @RestController
-@RequestMapping("/api/devs")
+@RequestMapping(value = {"/api/devs"/*, "/"*/})
 public class DeveloperRestController {
 
     @Autowired

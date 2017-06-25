@@ -21,9 +21,11 @@ public class Developer extends Person {
     private String specialty;
 
     @Column(name = "experience")
+    @NotEmpty
     private int experience;
 
     @Column(name = "salary")
+    @NotEmpty
     private int salary;
 
     public Developer(){}
