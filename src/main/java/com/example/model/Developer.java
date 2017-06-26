@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created on 22.06.2017
@@ -21,11 +22,11 @@ public class Developer extends Person {
     private String specialty;
 
     @Column(name = "experience")
-    @NotEmpty
+    @NotNull
     private int experience;
 
     @Column(name = "salary")
-    @NotEmpty
+    @NotNull
     private int salary;
 
     public Developer(){}
