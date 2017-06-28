@@ -1,7 +1,7 @@
-# spring-rest-app-server
+# spring-app-server-rest
 # REST app server in 3-tier model (Only backend)
 
-This backend application only provides a REST API. There is no UI. The ?????? project is a front-end application
+This backend application only provides a REST API. There is no UI. The [web-server-angular](https://github.com/apache888/web-server-angular) project is a front-end application
 witch consumes the REST API.
 
 This application provides CRUD operations for entity (now it's only Developer)
@@ -14,4 +14,4 @@ For run server it is needed to execute: mvn spring-boot:run
 
 You can access server here: http://localhost:9966/app-server/
 
-... in processing ...
+Finished beginning part
