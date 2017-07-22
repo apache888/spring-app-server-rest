@@ -20,6 +20,7 @@ import java.util.Collection;
  *
  * @author Roman Hayda
  */
+@CrossOrigin(origins = {"http://localhost:9966/app-server", "http://localhost:4200"}, allowCredentials = "true", maxAge = 3600)
 @RestController
 @RequestMapping(value = {"/api/devs"/*, "/"*/})
 public class DeveloperRestController {
