@@ -7,12 +7,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
 import java.util.Collection;
 
 /**
@@ -20,10 +20,10 @@ import java.util.Collection;
  *
  * @author Roman Hayda
  */
-@CrossOrigin(origins = {"http://localhost:9966/app-server", "http://localhost:4200"},
-        exposedHeaders = "errors, content-type", allowCredentials = "true", maxAge = 3600)
+//@CrossOrigin(origins = {"http://localhost:9966", "http://localhost:4200"},
+//        exposedHeaders = "errors, content-type", allowCredentials = "true", maxAge = 3600)
 @RestController
-@RequestMapping(value = {"/api/devs"/*, "/"*/})
+@RequestMapping(value = {"/api/devs"})
 public class DeveloperRestController {
 
     @Autowired
@@ -48,8 +48,8 @@ public class DeveloperRestController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Developer> addDev(@RequestBody @Valid Developer dev, BindingResult bindingResult,
-                                          UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Developer> addDev(@RequestBody @Validated Developer dev, BindingResult bindingResult,
+                                            UriComponentsBuilder ucBuilder) {
         BindingErrorsResponse errors = new BindingErrorsResponse();
         HttpHeaders headers = new HttpHeaders();
         if (bindingResult.hasErrors() || (dev == null)) {
@@ -63,7 +63,7 @@ public class DeveloperRestController {
     }
 
     @RequestMapping(value = "/{devId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Developer> updateDev(@PathVariable("devId") int devId, @RequestBody @Valid Developer dev,
+    public ResponseEntity<Developer> updateDev(@PathVariable("devId") int devId, @RequestBody @Validated Developer dev,
                                              BindingResult bindingResult, UriComponentsBuilder ucBuilder) {
         BindingErrorsResponse errors = new BindingErrorsResponse();
         HttpHeaders headers = new HttpHeaders();
