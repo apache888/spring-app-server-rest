@@ -48,7 +48,7 @@ public class DeveloperRestController {
         return new ResponseEntity<>(dev, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Developer> addDev(@RequestBody @Validated Developer dev, BindingResult bindingResult,
                                             UriComponentsBuilder ucBuilder) {
@@ -64,7 +64,7 @@ public class DeveloperRestController {
         return new ResponseEntity<>(dev, headers, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/{devId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Developer> updateDev(@PathVariable("devId") int devId, @RequestBody @Validated Developer dev,
                                              BindingResult bindingResult, UriComponentsBuilder ucBuilder) {
@@ -88,7 +88,7 @@ public class DeveloperRestController {
         return new ResponseEntity<>(currentDev, HttpStatus.NO_CONTENT);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/{devId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Transactional
     public ResponseEntity<Void> deleteDev(@PathVariable("devId") int devId) {
