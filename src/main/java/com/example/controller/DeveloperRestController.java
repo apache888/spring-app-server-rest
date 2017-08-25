@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -21,8 +22,7 @@ import java.util.Collection;
  *
  * @author Roman Hayda
  */
-//@CrossOrigin(origins = {"http://localhost:9966", "http://localhost:4200"},
-//        exposedHeaders = "errors, content-type", allowCredentials = "true", maxAge = 3600)
+//@CrossOrigin(origins = {"http://localhost:4200"}, allowCredentials = "true", maxAge = 3600)
 @RestController
 @RequestMapping(value = {"/api/devs"})
 public class DeveloperRestController {
@@ -30,7 +30,7 @@ public class DeveloperRestController {
     @Autowired
     private DeveloperService devService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Collection<Developer>> getDevs() {
         Collection<Developer> devs = this.devService.findAllDevs();
         if (devs.isEmpty()) {
@@ -39,7 +39,8 @@ public class DeveloperRestController {
         return new ResponseEntity<>(devs, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{devId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @GetMapping(value = "/{devId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Developer> getDev(@PathVariable("devId") int devId) {
         Developer dev = this.devService.findDevById(devId);
         if (dev == null) {
@@ -48,8 +49,8 @@ public class DeveloperRestController {
         return new ResponseEntity<>(dev, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Developer> addDev(@RequestBody @Validated Developer dev, BindingResult bindingResult,
                                             UriComponentsBuilder ucBuilder) {
         BindingErrorsResponse errors = new BindingErrorsResponse();
@@ -64,8 +65,8 @@ public class DeveloperRestController {
         return new ResponseEntity<>(dev, headers, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @RequestMapping(value = "/{devId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping(value = "/{devId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Developer> updateDev(@PathVariable("devId") int devId, @RequestBody @Validated Developer dev,
                                              BindingResult bindingResult, UriComponentsBuilder ucBuilder) {
         BindingErrorsResponse errors = new BindingErrorsResponse();
@@ -88,8 +89,8 @@ public class DeveloperRestController {
         return new ResponseEntity<>(currentDev, HttpStatus.NO_CONTENT);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @RequestMapping(value = "/{devId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "/{devId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Transactional
     public ResponseEntity<Void> deleteDev(@PathVariable("devId") int devId) {
         Developer dev = this.devService.findDevById(devId);

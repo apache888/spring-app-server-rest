@@ -1,10 +1,13 @@
 -- pass - admin
 INSERT INTO users VALUES (1, 'admin', '$2a$11$UxhGJ1ofAGqAXEEoIkoKNOwLvdu7no.MIcIz.yyGoXR1TaPFb.HKS');
+-- pass - user
+INSERT INTO users VALUES (2, 'user', '$2a$04$aM8eIhwyAhtLQMwNJZYjJO0esO5SakRVUwmXWwPJZwVM4gixskumy');
 
 INSERT INTO roles VALUES (1, 'ROLE_ADMIN');
 INSERT INTO roles VALUES (2, 'ROLE_USER');
 
 INSERT INTO user_roles VALUES (1, 1);
+INSERT INTO user_roles VALUES (2, 2);
 
 INSERT INTO developers VALUES (1, 'James', 'Carter', 'java', 1, 300);
 INSERT INTO developers VALUES (2, 'Helen', 'Leary', 'java', 2, 500);
