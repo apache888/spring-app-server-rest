@@ -86,7 +86,7 @@ public class DeveloperRestController {
         currentDev.setExperience(dev.getExperience());
         currentDev.setSalary(dev.getSalary());
         this.devService.saveDev(currentDev);
-        return new ResponseEntity<>(currentDev, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Developer>(currentDev, HttpStatus.RESET_CONTENT);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
