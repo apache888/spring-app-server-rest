@@ -27,7 +27,10 @@ public class TokenAuthService {
             String token = request.getHeader(AUTH_HEADER_NAME);
             String username = tokenHandler.getUsernameFromToken(token);
             User user = userService.findByUsername(username);
-            return new UserAuthentication(user);
+            if (user != null) {
+                return new UserAuthentication(user);
+            }
+            return  null;
         } catch (Exception e) {
             return null;
         }

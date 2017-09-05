@@ -26,7 +26,9 @@ public class RestAppServerApplication {
 				registry.addMapping("/**")
 						.allowedOrigins("http://localhost:4200")
 						.allowCredentials(true)
-						.exposedHeaders("errors", "content-type")
+						.allowedMethods("*")
+						.allowedHeaders("*")
+//						.exposedHeaders("Errors", "Content-Type","Access-Control-", "X-Auth-Token")
 						.maxAge(7200);
 			}
 		};
